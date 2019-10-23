@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define igual 0
+#define maior 1
+#define menor -1
+
 typedef struct pessoa
 {
     char nome[30];
@@ -20,11 +24,11 @@ void exibirPessoas(pessoa *cadastradas, int qtdCadastradas);
 
 void converteData(pessoa *cadastradas, int qtdCadastradas);
 
-//As funções de descobrir a pessoa mais velha e a mais nova estão com problemas, mas decidir deixa-las, já que funcionam em alguns casos.
-
 void maisVelha(pessoa *cadastradas, int qtdCadastradas);
 
 void maisNova(pessoa *cadastradas, int qtdCadastradas);
+
+int comparaData(char data1[], char data2[]);
 
 int main(int argc, char const *argv[])
 {
@@ -125,6 +129,7 @@ void excluirPessoa(pessoa *cadastradas, int qtdCadastradas)
 
 void exibirPessoas(pessoa *cadastradas, int qtdCadastradas)
 {
+    printf("\nPessoas cadastradas.\n");
     for (int i = 0; i < qtdCadastradas; i++)
     {
         printf("\n%s", cadastradas[i].nome);
@@ -140,114 +145,116 @@ void exibirPessoas(pessoa *cadastradas, int qtdCadastradas)
     }
 }
 
+int comparaData(char data1[], char data2[]){
+    char dia1[3];
+    dia1[0] = data1[0];
+    dia1[1] = data1[1];
+    dia1[2] = '\0';
+    
+    char dia2[3];
+    dia2[0] = data2[0];
+    dia2[1] = data2[1];
+    dia2[2] = '\0';
+    
+    char mes1[3];
+    mes1[0] = data1[3];
+    mes1[1] = data1[4];
+    mes1[2] = '\0';
+    
+    char mes2[3];
+    mes2[0] = data2[3];
+    mes2[1] = data2[4];
+    mes2[2] = '\0';
+    
+    char ano1[5];
+    for(int i = 0; i < 4; i++){
+        ano1[i] = data1[i + 6];
+    }
+    ano1[4] = '\0';
+    
+    char ano2[5];
+    for(int i = 0; i < 4; i++){
+        ano2[i] = data2[i + 6];
+    }
+    ano2[4] = '\0';
+
+    int dia1Int = atoi(dia1);
+    int dia2Int = atoi(dia2);
+
+    int mes1Int = atoi(mes1);
+    int mes2Int = atoi(mes2);
+
+    int ano1Int = atoi(ano1);
+    int ano2Int = atoi(ano2);
+    
+    if(ano1Int > ano2Int) {
+        return maior;
+    } else if(ano1Int < ano2Int) {
+        return menor;
+    } else {
+        if(mes1Int > mes2Int) {
+            return maior;
+        } else if(mes1Int < mes2Int) {
+            return menor;
+        } else {
+            if(dia1Int > dia2Int) {
+                return maior;
+            } else if(dia1Int < dia2Int) {
+                return menor;
+            } else {
+                return igual;
+            }
+        }
+    }
+    
+}
+
 void maisVelha(pessoa *cadastradas, int qtdCadastradas)
 {
-    char diasc[qtdCadastradas][3];
-    char mesesc[qtdCadastradas][3];
-    char anosc[qtdCadastradas][5];
-    int dias[qtdCadastradas];
-    int meses[qtdCadastradas];
-    int anos[qtdCadastradas];
-    int menor = 0;
+    int menor1 = 0;
 
     for (int i = 0; i < qtdCadastradas; i++)
     {
-        diasc[i][0] = cadastradas[i].dataDeNascimento[0];
-        diasc[i][1] = cadastradas[i].dataDeNascimento[1];
-        mesesc[i][0] = cadastradas[i].dataDeNascimento[3];
-        mesesc[i][1] = cadastradas[i].dataDeNascimento[4];
-        anosc[i][0] = cadastradas[i].dataDeNascimento[6];
-        anosc[i][1] = cadastradas[i].dataDeNascimento[7];
-        anosc[i][2] = cadastradas[i].dataDeNascimento[8];
-        anosc[i][3] = cadastradas[i].dataDeNascimento[9];
-    }
-
-    for (int i = 0; i < qtdCadastradas; i++)
-    {
-        dias[i] = atoi(diasc[i]);
-        meses[i] = atoi(mesesc[i]);
-        anos[i] = atoi(anosc[i]);
-    }
-
-    for (int i = 0; i < qtdCadastradas; i++)
-    {
-        if (anos[i] < anos[menor])
+        if (comparaData(cadastradas[i].dataDeNascimento,cadastradas[menor1].dataDeNascimento) == -1)
         {
-            menor = i;
-        }
-        else if (anos[i] == anos[menor])
-        {
-            if (meses[i] < meses[menor])
-            {
-                menor = i;
-            }
-            else if (meses[i] == meses[menor])
-            {
-                if (dias[i] < dias[menor])
-                {
-                    menor = i;
-                }
-            }
+            menor1 = i;
         }
     }
 
-    printf("%s", cadastradas[menor].nome);
-    printf("%s", cadastradas[menor].dataDeNascimento);
-    printf("%i", cadastradas[menor].sexo);
+    printf("\nPessoa mais velha.\n");
+    printf("\n%s", cadastradas[menor1].nome);
+    printf("\n%s", cadastradas[menor1].dataDeNascimento);
+        if (cadastradas[menor1].sexo == 0)
+        {
+            printf("\nMasculino\n");
+        }
+        else
+        {
+            printf("\nFeminino\n");
+        }
 }
 
 void maisNova(pessoa *cadastradas, int qtdCadastradas)
 {
-    char diasc[qtdCadastradas][3];
-    char mesesc[qtdCadastradas][3];
-    char anosc[qtdCadastradas][5];
-    int dias[qtdCadastradas];
-    int meses[qtdCadastradas];
-    int anos[qtdCadastradas];
-    int maior = 0;
+    int maior1 = 0;
 
     for (int i = 0; i < qtdCadastradas; i++)
     {
-        diasc[i][0] = cadastradas[i].dataDeNascimento[0];
-        diasc[i][1] = cadastradas[i].dataDeNascimento[1];
-        mesesc[i][0] = cadastradas[i].dataDeNascimento[3];
-        mesesc[i][1] = cadastradas[i].dataDeNascimento[4];
-        anosc[i][0] = cadastradas[i].dataDeNascimento[6];
-        anosc[i][1] = cadastradas[i].dataDeNascimento[7];
-        anosc[i][2] = cadastradas[i].dataDeNascimento[8];
-        anosc[i][3] = cadastradas[i].dataDeNascimento[9];
-    }
-
-    for (int i = 0; i < qtdCadastradas; i++)
-    {
-        dias[i] = atoi(diasc[i]);
-        meses[i] = atoi(mesesc[i]);
-        anos[i] = atoi(anosc[i]);
-    }
-
-    for (int i = 0; i < qtdCadastradas; i++)
-    {
-        if (anos[i] > anos[maior])
+        if (comparaData(cadastradas[i].dataDeNascimento,cadastradas[maior1].dataDeNascimento) == 1)
         {
-            maior = i;
-        }
-        else if (anos[i] == anos[maior])
-        {
-            if (meses[i] > meses[maior])
-            {
-                maior = i;
-            }
-            else if (meses[i] == meses[maior])
-            {
-                if (dias[i] > dias[maior])
-                {
-                    maior = i;
-                }
-            }
+            maior1 = i;
         }
     }
 
-    printf("%s", cadastradas[maior].nome);
-    printf("%s", cadastradas[maior].dataDeNascimento);
-    printf("%i", cadastradas[maior].sexo);
+    printf("\nPessoa mais nova.\n");
+    printf("\n%s", cadastradas[maior1].nome);
+        printf("\n%s", cadastradas[maior1].dataDeNascimento);
+        if (cadastradas[maior1].sexo == 0)
+        {
+            printf("\nMasculino\n");
+        }
+        else
+        {
+            printf("\nFeminino\n");
+        }
 }

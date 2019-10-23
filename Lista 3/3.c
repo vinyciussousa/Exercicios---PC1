@@ -14,19 +14,19 @@ struct perecivel
     char prazoDeValidade[11];
 };
 
-typedef struct produto{
+typedef struct produto
+{
     char nome[20];
     char codigo[14];
     float preco;
     int quantidade;
     bool tipo;
-    union 
-    {
+    union {
         struct nPerecivel nPerecivel;
         struct perecivel perecivel;
     };
-    
-}produto;
+
+} produto;
 
 void adicionarProduto(produto *mercado, int nroElem);
 
@@ -58,16 +58,17 @@ int main(int argc, char const *argv[])
         case 4:
             printf("\nSaindo do programa.");
             break;
-        
+
         default:
             break;
         }
     } while (controle != 4);
-    
+
     return 0;
 }
 
-void adicionarProduto(produto *mercado, int nroElem){
+void adicionarProduto(produto *mercado, int nroElem)
+{
     if (nroElem < 20)
     {
         printf("\nDigite o nome do produto: ");
@@ -92,7 +93,8 @@ void adicionarProduto(produto *mercado, int nroElem){
     }
 }
 
-void buscarProduto(produto *mercado, int nroElem){
+void buscarProduto(produto *mercado, int nroElem)
+{
     char codigoBusca[14];
     int achou = 0;
     printf("\nDigite o codigo do produto que deseja encontrar: ");
@@ -123,10 +125,11 @@ void buscarProduto(produto *mercado, int nroElem){
     {
         printf("\nEsse produto não existe.\n");
         return;
-    } 
+    }
 }
 
-void precoProduto(produto *mercado, int nroElem){
+void precoProduto(produto *mercado, int nroElem)
+{
     char codigoBusca[14];
     int achou = 0;
     printf("\nDigite o codigo do produto que deseja encontrar: ");
@@ -146,5 +149,5 @@ void precoProduto(produto *mercado, int nroElem){
     {
         printf("\nEsse produto não existe.\n");
         return;
-    } 
+    }
 }

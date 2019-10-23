@@ -98,7 +98,8 @@ int criarAlbum(album *album, int existe)
     return 0;
 }
 
-void adicionarMusicas(album *album, int existe){
+void adicionarMusicas(album *album, int existe)
+{
     if (existe)
     {
         int i = 0;
@@ -113,7 +114,6 @@ void adicionarMusicas(album *album, int existe){
             scanf("%5[^\n]s", album->musicas[i].duracao);
             i++;
         } while (i < album->qtdMusicas);
-        
     }
     else
     {
@@ -122,7 +122,8 @@ void adicionarMusicas(album *album, int existe){
     }
 }
 
-void listarMusicas(album album){
+void listarMusicas(album album)
+{
     for (int i = 0; i < album.qtdMusicas; i++)
     {
         printf("\n%i - %s", i, album.musicas[i].nome);
