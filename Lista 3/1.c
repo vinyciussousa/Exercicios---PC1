@@ -22,8 +22,6 @@ void excluirPessoa(pessoa *cadastradas, int qtdCadastradas);
 
 void exibirPessoas(pessoa *cadastradas, int qtdCadastradas);
 
-void converteData(pessoa *cadastradas, int qtdCadastradas);
-
 void maisVelha(pessoa *cadastradas, int qtdCadastradas);
 
 void maisNova(pessoa *cadastradas, int qtdCadastradas);
