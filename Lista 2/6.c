@@ -12,7 +12,6 @@ void removeTermo(char *string, int indice, int tamTermo){
         i++;
     }
     string[i] = '\0';
-    
 }
 
 int main(int argc, char const *argv[])
