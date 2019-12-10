@@ -65,14 +65,14 @@ int main(int argc, char const *argv[])
     int controle = 0;
     fp = fopen("pessoas", "a+b");
 
-    if (fp != NULL)
-    {
-        qtdCadastradas = adicionaPessoas(fp, cadastradas, qtdCadastradas);
-    }
-
     for (int i = 0; i < 30; i++)
     {
         cadastradas[i].existe = 0;
+    }
+
+    if (fp != NULL)
+    {
+        qtdCadastradas = adicionaPessoas(fp, cadastradas, qtdCadastradas);
     }
 
     do

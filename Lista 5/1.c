@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int potencia(int x, int n)
+float potencia(int x, int n)
 {
     if (n == 0)
         return 1;
